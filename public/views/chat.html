@@ -1,0 +1,251 @@
+
+
+    
+    
+
+    <div class="row message-input">
+      <div class="col-xs-12">
+        
+        <div class="row" style="height:60px;">
+          <div style="height:100%;vertical-align:middle;" class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+            <img ng-show="!!myProfile" style="position:absolute;top:0;bottom:0;margin:auto;" class="img-circle img-small" ng-src="{{myProfile.picture}}">
+
+          </div>
+      
+          <div class="hidden-lg hidden-md hidden-sm col-xs-2" style="vertical-align:middle;height:100%;">
+
+              <span class="glyphicon glyphicon-cog only-show-in-burger-mode" style="cursor:pointer;vertical-align:middle;top:16px;font-size:30px;" data-toggle="collapse" data-target="#settings-for-the-burger">
+              </span>
+
+            
+          </div>
+      
+          <div class="col-lg-11 col-md-11 col-sm-11 col-xs-8" style="vertical-align:middle;height:100%;">
+              <form style="margin-top:13px;">
+                <div class="input-group input-group-sm" style="height:100%;vertical-align:middle;">
+                
+
+                <span style="vertical-align:middle;">
+                  <input style="transition: none" ng-show="!!myProfile" ng-enter="sendMessage()" ng-model="messageInput" type="text" class="form-control" placeholder="Enter Message" />
+                  <input style="transition: none" ng-show="!myProfile" type="text" class="form-control" placeholder="Please log in to send messages or upload pictures..." disabled/>
+                </span>
+                
+    
+  
+                <div style="inline-block" ng-show="messageInput.length > 0" class="input-group-btn">
+                  <button style="height:34px !important;" ng-show="!!myProfile" ng-click="sendMessage()" class="btn btn-default bounded-buzz-button" type="button">SEND <span ng-show="myTagFilter != ''"> with {{myTagFilter}}</span></button>
+                  <button style="height:34px !important;" ng-show="!myProfile" class="btn btn-default bounded-buzz-button" type="button" disabled>SEND</button>
+                </div>
+                
+                <div style="inline-block;position:relative;" ng-show="!messageInput.length" class="input-group-btn">
+                  <button ng-disabled="!myProfile" class="chat btn btn-file bounded-buzz-button" ng-class="{'btn-success':uploader.isUploading,'btn-primary':!uploader.isUploading}">
+                    <span class="hide-in-supersmall">
+                    {{buttonCaption}}
+                    </span>
+                    <span class="show-only-in-supersmall" ng-show="!uploader.isUploading">
+                    Upload
+                    </span>
+                    <span class="show-only-in-supersmall" ng-show="uploader.isUploading">
+                    ...
+                    </span>
+                    
+                    <span ng-show="uploader.isUploading">
+                    {{uploader.progress}} %
+                    </span>
+                  </button> 
+                  <input class="special-btn-file" type="file" multiple="multiple" nv-file-select uploader="uploader" accept="image/*,video/*" capture />
+
+                </div>
+
+              </form>
+            </div>
+        
+          </div>
+        </div>
+
+
+        <div class="hide-in-burger-mode row" style="height:60px;">
+
+          <div style="top:12px;" class="col-md-12 col-xs-12">
+            <form class="hide-in-burger-mode form-inline pull-right" role="form">
+              <span style="color:white;">Filter: </span>
+              <div class="form-group">
+                  <input ng-blur="onNewSecretString()" ng-enter="onNewSecretString()" class="form-control secret-input" ng-model="mySecretString" type="text" placeholder="Channel Secrets">
+              </div>
+              <div class="form-group">
+                  <input ng-blur="onNewTagFilter()" ng-enter="onNewTagFilter()" class="form-control hash-input" ng-model="myTagFilter" type="text" placeholder="Hashtags"/>
+              </div>
+              &nbsp;&nbsp;&nbsp;
+              <span style="color:white;">Visibility: </span>
+              <div ng-show="!!myProfile" class="form-group ">
+                  <select class="form-control dropdown-inputs-ttl" ng-model="myTTL" ng-options="ttl.name for ttl in ttls"></select>
+              </div>
+              <div class="form-group ">
+                  <select class="form-control dropdown-inputs-range" ng-model="mySubscriptionRange" ng-options="range.name for range in ranges"></select>
+              </div>
+              <div ng-show="!!myProfile" class="form-group">
+                  <select class="form-control dropdown-inputs-delay" ng-model="myMessageDelay" ng-options="delay.name for delay in messageDelays"></select>
+              </div>
+            </form>
+          
+          </div>
+        </div>
+      </div>
+
+
+
+      
+    </div>
+  
+  
+
+      
+
+
+  
+    <div class="container-fluid variable-chat-container" style="height:100%;border-top:1px solid #333;box-sizing:border-box"> 
+
+      <div class="row only-show-in-burger-mode">
+        <div class="col-xs-12" >
+          <div id="settings-for-the-burger" class="collapse" style="margin-left:-15px;margin-right:-15px;">
+                <form role="form" style="padding:20px;background-color:#555;">
+                  <span style="color:white;">Filter: </span>
+                  <div class="form-group">
+                      <input ng-blur="onNewSecretString()" ng-enter="onNewSecretString()" class="form-control secret-input" ng-model="mySecretString" type="text" placeholder="Channel Secrets">
+                  </div>
+                  <div class="form-group">
+                      <input ng-blur="onNewTagFilter()" ng-enter="onNewTagFilter()" class="form-control hash-input" ng-model="myTagFilter" type="text" placeholder="Hashtags"/>
+                  </div>
+                  <span style="color:white;">Visibility: </span>
+                  <div ng-show="!!myProfile" class="form-group ">
+                      <select class="form-control dropdown-inputs-ttl" ng-model="myTTL" ng-options="ttl.name for ttl in ttls"></select>
+                  </div>
+                  <div class="form-group ">
+                      <select class="form-control dropdown-inputs-range" ng-model="mySubscriptionRange" ng-options="range.name for range in ranges"></select>
+                  </div>
+                  <div ng-show="!!myProfile" class="form-group">
+                      <select class="form-control dropdown-inputs-delay" ng-model="myMessageDelay" ng-options="delay.name for delay in messageDelays"></select>
+                  </div>
+                </form>
+          </div>
+          
+        </div>
+      </div>
+    
+    
+      <div class="row" style="height:calc(100%);height:-webkit-calc(100%);background-color:#ffffff;position:relative;">
+    
+        <div style="cursor:pointer;text-align:center;position:absolute;top:0px;z-index:10;width:100%;height:40px;padding:10px;
+                    border-bottom:1px solid #444444;" 
+             ng-click="scrollInNewMessages()"
+             ng-show="hasNewMessages() && isScrolled"
+             class="bg-info">
+             {{newMessageStack.length}} new messages
+             
+        </div>    
+    
+        <div scroll-watch="data.scrollData" reached-bottom="scrolledForMore()" ng-if="finishedLoadingMessages && hasMessages()" class="col-md-12" style="height:100%;overflow-y:scroll;padding-top:20px;">
+          <ul class="media-list">
+            <li class="media chat-animate-repeat" ng-repeat="message in messages">
+              <div style="width:100%;display:block;" class="media-body">
+                <a class="media-left" href="#">
+                  <img class="media-object img-circle img-small" ng-src="{{message.profileImageUrl}}" />
+                </a>
+                
+                <div  ng-class="{'new-message-marker':message.isNew}" style="display:table-cell;width:5px;"></div>
+                
+                <div style="padding-left:5px;" class="media-body" >
+                  <span ng-if="message.myUserId === myProfile.user_id" ng-click="deleteMessage(message)" class="glyphicon glyphicon-remove-sign" style="cursor:pointer;"></span>
+                	<span ng-if="message.messageType == 'text'">{{message.message}}</span>
+                	<span ng-if="message.messageType == 'image'">
+                		<img style="width:100%;" ng-if="isExtraSmallDevice()" ng-src="/getImageViaCache/small/{{message.payloadId}}"/>
+                    <img style="width:100%;" ng-if="isSmallDevice()" ng-src="/getImageViaCache/medium/{{message.payloadId}}"/>
+                		<img style="width:100%;" ng-if="isLargeDevice()" ng-src="/getImageViaCache/big/{{message.payloadId}}"/>
+                	</span>
+                  <span ng-if="message.messageType == 'video'">
+                    
+                    <div align="center" class="embed-responsive embed-responsive-16by9">
+                      <video class="embed-responsive-item" ng-attr-poster="{{getTranscodedVideoUrl('jpg',message.payloadId)}}" preload="none" controls="">
+                        <source src="" ng-src="{{getTranscodedVideoUrl('mp4',message.payloadId)}}" type="video/mp4"></source>
+                        <source src="" ng-src="{{getTranscodedVideoUrl('ogv',message.payloadId)}}" type="video/ogg"></source>
+                        <source src="" ng-src="{{getTranscodedVideoUrl('webm',message.payloadId)}}" type="video/webm"></source>
+                      </video>
+                    </div>
+                                    
+                  </span>
+                	
+                  <br />
+                  <small class="text-muted">
+                    <div style="display:inline-block;margin-right:10px;">{{message.displayName}}</div> 
+                    <div style="display:inline-block;margin-right:10px;"><span class="glyphicon glyphicon-plane"></span> {{message.myDistance | distance }} </span></div>
+                    <span style="white-space:nowrap;"><span class="glyphicon glyphicon-time"></span> {{message.timestamp | date: 'mediumTime'}} ({{message.timestamp | date: 'longDate'}})</span>
+                    <span style="display:inline;">{{message._remainingSeconds}}</span>
+                  </small>
+  
+                  <hr class="chat-ruler" />
+                </div> 
+              </div>
+            </li>
+          </ul>
+          
+          
+          
+        </div>
+    
+    
+  
+        <div ng-if="!myPosition.isValid" class="col-md-12" style="width:100%;height:100%;text-align:center;display:table;">
+          <div style="display:table-cell;vertical-align:middle;height:100%;">
+              <h2 >waiting for location...</h2>
+          </div>
+        </div>
+    
+        <div ng-if="!finishedLoadingMessages" class="col-md-12" style="width:100%;height:100%;text-align:center;display:table;">
+          <div style="display:table-cell;vertical-align:middle;height:100%;">
+              <h2 >loading messages...</h2>
+          </div>
+        </div>
+    
+  
+        <div ng-if="finishedLoadingMessages && !hasMessages()" class="col-md-12" style="width:100%;height:100%;text-align:center;display:table;">
+          <div style="display:table-cell;vertical-align:middle;height:100%;">
+              <h3>There are no messages in this area. Try extending your visibility radius or just start posting your own messages.</h3>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

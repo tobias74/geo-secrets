@@ -1,0 +1,139 @@
+
+
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+html{
+  height:100%;
+}
+
+body {
+  padding-top: 61px;
+  height:100%;
+  min-height:100%;
+}
+
+
+
+
+.show-only-in-supersmall{
+  display:none;
+}
+
+
+
+
+@media (min-width: 768px) and (max-width:991px){
+  .hash-input{
+    max-width:105px;  
+  }
+  .secret-input{
+    max-width:135px;  
+  }
+  
+  .dropdown-inputs-delay{
+    max-width:114px;
+    font-size:12px;
+  }
+  .dropdown-inputs-ttl{
+    max-width:92px;
+    font-size:12px;
+  }
+  .dropdown-inputs-range{
+    max-width:72px;
+    font-size:12px;
+  }
+  
+  .navbar-right ~ .navbar-right{
+    margin-right:-15px;
+  }
+}
+
+
+.only-show-in-burger-mode{
+  display:none;
+}
+.hide-in-burger-mode{
+  display:inherit;
+}
+
+
+.bounded-buzz-button{
+  height: 33px !important;
+  margin-left:-1px !important;
+}
+
+@media (max-width: 767px){
+  .only-show-in-burger-mode{
+    display:inherit;
+  }
+  .hide-in-burger-mode{
+    display:none;
+  }
+
+  .message-input{
+    height:80px;
+  }
+
+  .variable-chat-container{
+    padding-top:69px;    
+  }
+  
+  .bounded-buzz-button{
+    width:60px;    
+  }
+
+}
+
+
+@media (min-width: 768px){
+  .message-input{
+    height:140px;
+  }
+  .variable-chat-container{
+    padding-top:129px;    
+  }
+
+  .bounded-buzz-button{
+    width:120px;    
+  }
+
+
+}
+
+
+@media (max-width: 700px){
+
+  .hide-in-supersmall{
+    display:none;
+  }
+
+  .show-only-in-supersmall{
+    display:inherit
+  }
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

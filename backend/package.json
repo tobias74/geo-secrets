@@ -1,0 +1,40 @@
+{
+  "name": "bounded.buzz",
+  "description": "A simple geo chat",
+  "main": "app.js",
+  "dependencies": {
+    "auth0": "^2.3.0",
+    "express-jwt": "^3.4.0",
+    "async": "*",
+    "amqplib": "*",
+    "temp": "*",
+    "mongodb": "*",
+    "gridfs-stream":"*",
+    "http": "*",
+    "node-gcm": "*",
+    "body-parser": "*",
+    "underscore": "*",
+    "express": "*",
+    "googleapis": "*",
+    "socket.io": "*",
+    "formidable": "*",
+    "fs-extra": "*",
+    "gm": "*",
+    "elasticsearch": "*",
+    "extend": "*",
+    "redis": "*"
+  },
+  "devDependencies": {
+    "grunt-cli": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-nodeunit": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-preprocess": "*",
+    "istanbul": "*",
+    "nodeunit": "*"
+  }
+}
+
+
