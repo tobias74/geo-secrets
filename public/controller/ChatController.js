@@ -39,14 +39,9 @@ function($location,$scope,$route,$resource,$http,ResponsiveService,FileUploader,
       {name:'200m', value:'200m'},
       {name:'500m', value:'500m'},
       {name:'1km', value:'1km'},
-      {name:'2km', value:'2km'},
-      {name:'5km', value:'5km'},
-      {name:'10km', value:'10km'},
-      {name:'100km', value:'100km'},
-      {name:'1000km', value:'1000km'}
     ];
-  $scope.mySubscriptionRange = $scope.ranges[11];
-  $scope.myVisibilityRange = $scope.ranges[11];
+  $scope.mySubscriptionRange = $scope.ranges[4];
+  $scope.myVisibilityRange = $scope.ranges[4];
 
 
 
@@ -184,13 +179,9 @@ function($location,$scope,$route,$resource,$http,ResponsiveService,FileUploader,
   };
   
   $scope.sendMessage = function(){
-    var channelTag = "";
-    if ($scope.myTagFilter != ""){
-      channelTag = " ( " + $scope.myTagFilter + " )";
-    }
     if (($scope.messageInput != "") && ($scope.messageInput != undefined)){
       var messageData = {
-          message: $scope.messageInput + channelTag,
+          message: $scope.messageInput,
           messageType: "text",
           messageSecret: $scope.messageSecret,
           visibilityRadius: $scope.myVisibilityRange.value,
@@ -241,23 +232,7 @@ function($location,$scope,$route,$resource,$http,ResponsiveService,FileUploader,
 
 
 
-  $scope.onNewTagFilter = function(){
 
-    if ($scope.myTagFilter == ""){
-      $scope.subscribedToTags = null;
-    }
-    else {
-      $scope.subscribedToTags = $scope.myTagFilter.split(" ");
-    }
-    if ($scope.myPosition.isValid){
-      $scope.messages = [];
-      $scope.newMessageStack = [];
-      $scope.isScrolled = false;
-      $scope.finishedLoadingMessages = false;  
-      $scope.clickForRecentMessages();    
-    }
-  };
-  
   $scope.onNewSecretString = function(){
 
     if ($scope.mySecretString == ""){
@@ -286,17 +261,12 @@ function($location,$scope,$route,$resource,$http,ResponsiveService,FileUploader,
       console.debug('image upload complete.');
       
       console.debug(response);
-      
-      var channelTag = "";
-      if ($scope.myTagFilter != ""){
-        channelTag = " ( " + $scope.myTagFilter + " )";
-      }
-      
+
       $scope.buttonCaption = 'Upload Media';
   
       response.forEach(function(myResponse){
         var messageData = {
-          message: channelTag,
+          message: '',
           messageType: myResponse.payloadType,
           messageSecret: $scope.messageSecret,
           payloadId: myResponse.fileId,
@@ -309,7 +279,8 @@ function($location,$scope,$route,$resource,$http,ResponsiveService,FileUploader,
         };
         
         console.debug(messageData);
-        socket.emit('new message', messageData);
+  
+        ApiService.sendGeoSecret(messageData);
       });
     },
     onAfterAddingFile: function(item){
