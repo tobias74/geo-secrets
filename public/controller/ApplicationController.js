@@ -31,7 +31,7 @@ function($location,$scope,$route,$resource,$http,ResponsiveService,FileUploader,
 
 
 
-  $scope.applicationTitle = "bounded.buzz";                         
+  $scope.applicationTitle = "geosecrets";                         
 
 
 
@@ -45,46 +45,7 @@ function($location,$scope,$route,$resource,$http,ResponsiveService,FileUploader,
 
   $scope.$route = $route;
 
-	
 
-
-  
-  
-
-    
-
-
-    
-  if ('serviceWorker' in navigator) {
-   console.log('Service Worker is supported!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
-   navigator.serviceWorker.register('/service-workers/sw.js').then(function(reg) {
-     console.log('--------------------------------------------------------- we instzalled the pushtihing###################################', reg);
-     reg.pushManager.subscribe({
-        userVisibleOnly: true
-      }).then(function(sub) {
-        console.log('endpoint:', sub.endpoint);
-        var subscriptionId = (sub.endpoint.split("/").slice(-1))[0];
-        console.debug('this is our subscription ID which we will want to send to the server: ' +  subscriptionId);
-
-        $http.post('/gcm-subscription-id',{
-          'gcmSubscriptionId': subscriptionId
-        }).success(function(result){
-          console.debug('sent gcm subscription id');
-          console.debug(result);  
-        });
-
-      });
-      
-      
-     
-     
-   }).catch(function(err) {
-     console.log(':^(', err);
-   });
-  }  
-  
-  
-  
 }]);
 
 

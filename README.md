@@ -57,6 +57,10 @@ Enforce appropriate firewall rules!
 
 
 
+rabbitmqctl add_user tobias password
+
+rabbitmqctl set_permissions tobias ".*" ".*" ".*"
+
 
 
 elasticsearch.yml

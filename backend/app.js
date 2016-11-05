@@ -161,32 +161,56 @@ app.post('/upload', function(req,res,next){
 });
 
 
+app.use('/send-geo-secret', jwtCheck);
 
-console.log("this is the redis-host " + config.redisUrl);
+
+app.post('/send-geo-secret', function(req,res,next){
+  var data = req.body;
+
+  var jwtToken = auth0Helper.getJWTToken(req);
+  auth0.tokens.getInfo(jwtToken, function(err, userInfo){
+
+    var messageData = {
+      messageType: data.messageType,
+      messageSecret: data.messageSecret,
+      payloadId: data.payloadId,
+      message: data.message,
+      myUserId: userInfo.user_id,
+      displayName: userInfo.given_name,
+      profileImageUrl: userInfo.picture,
+      lat: data.position.latitude,
+      lon: data.position.longitude,
+      visibilityRadius: data.visibilityRadius,
+      timestamp: Date.now()
+    };
+
+    if ((data.messageType === 'video') || (data.messageType === 'image'))
+    {
+      messageData.isReady = false;
+      chatIndex.indexMessage(messageData);
+      expressMediaServer.announceMediaForTranscoding(messageData.payloadId, messageData);
+    }
+    else
+    {
+      messageData.isReady = true;
+      chatIndex.indexMessage(messageData);
+    }
 
 
-var boundedBuzzService = require('./bounded-buzz-service')({
-  auth0: auth0,
-  expressMediaServer: expressMediaServer,
+  });
+
+  res.end();
 });
 
 
-var messagingService = require('./chat/messaging-service');
 
 
-var chat = require('./chat')({
-  boundedBuzzService: boundedBuzzService,
-  auth0: auth0,
-  expressMediaServer: expressMediaServer,
-  messagingService: messagingService
-});
+
+
+
 
 var httpsServer = https.createServer(credentials, app);
 httpsServer.listen(config.sslPort);
-
-chat.startChat(httpsServer,credentials);
-
-
 
 
 // Redirect from http to https
@@ -207,23 +231,8 @@ console.log('startup webserver complete');
 
 expressMediaServer.startListeningForTranscodingJobs(function(messageData){
   messageData.isReady=true;
-  messagingService.publishMessageTentatively(messageData);
+  chatIndex.indexMessage( messageData );
 });
 
 
-setInterval(function(){
-  chatIndex.searchExpiredMessages({}, function(expiredMessages){
-    console.log('these are the expired messages:');
-    console.log(expiredMessages);
-    expiredMessages.forEach(function(message){
-      chatIndex.deleteMessage(message._id, function(response){
-        console.log('this is the delete message response');
-        if (response.found && message.payloadId) {
-          expressMediaServer.deleteMedia(message.payloadId);
-        }
-        
-      });
-      
-    });
-  });
-},10*1000);
+

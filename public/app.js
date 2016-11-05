@@ -20,9 +20,6 @@ var app = angular.module('chatApp', ['ngRoute','ngResource','angularFileUpload',
   }).otherwise({
     redirectTo:'/chat'
   });
-}).factory('socketIO', function(){
-  return io;
-  //return socket;
 }).directive('ngEnter', function() {
   return function(scope, element, attrs) {
     element.bind("keydown keypress", function(event) {
@@ -55,7 +52,7 @@ app.filter('distance', function () {
 app.config( function(authProvider) {
   authProvider.init({
       domain: 'tobiga.eu.auth0.com',
-      clientID: 'wI51s2nV0OLcjzDiys3K5Uw9cYxvJcZw'
+      clientID: '2Lt9H3RoWj6ytw9w78hOPuCsaLnVZy5b'
   }); 
 
   authProvider.on('logout', ['$rootScope', '$location', 'store', function($rootScope, $location, store) {
