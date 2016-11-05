@@ -257,6 +257,9 @@ function($location,$scope,$route,$resource,$http,ResponsiveService,FileUploader,
     autoUpload:true,
     removeAfterUpload: true,
     url:'/upload',
+    headers: {
+      'Authorization': 'Bearer ' + store.get('token'),
+    },
     onCompleteItem: function(item, response, status, headers){
       console.debug('image upload complete.');
       

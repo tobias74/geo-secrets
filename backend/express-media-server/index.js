@@ -148,6 +148,8 @@ module.exports = function(app, options){
     
     announceMediaForTranscoding: mediaTranscoder.announceMediaForTranscoding,
 
+    executeTranscodingJob: mediaTranscoder.executeTranscodingJob,
+    
     startListeningForTranscodingJobs: function(callback){
       var amqp = require('amqplib/callback_api');
       

@@ -155,6 +155,7 @@ app.get('/environment.js',function(req, res, next){
 
 
 
+app.use('/upload', jwtCheck);
 app.post('/upload', function(req,res,next){
   	res.json(res.emsUploadData);
     next();
@@ -162,8 +163,6 @@ app.post('/upload', function(req,res,next){
 
 
 app.use('/send-geo-secret', jwtCheck);
-
-
 app.post('/send-geo-secret', function(req,res,next){
   var data = req.body;
 
@@ -184,22 +183,31 @@ app.post('/send-geo-secret', function(req,res,next){
       timestamp: Date.now()
     };
 
-    if ((data.messageType === 'video') || (data.messageType === 'image'))
-    {
+    if (data.messageType === 'video'){
       messageData.isReady = false;
       chatIndex.indexMessage(messageData);
       expressMediaServer.announceMediaForTranscoding(messageData.payloadId, messageData);
+      res.end();
+      
+    }
+    else if (data.messageType === 'image'){
+      expressMediaServer.executeTranscodingJob(messageData.payloadId, function(){
+        messageData.isReady = true;
+        chatIndex.indexMessage(messageData);
+        res.json({'image':'finished'});
+        res.end();
+      });
     }
     else
     {
       messageData.isReady = true;
       chatIndex.indexMessage(messageData);
+      res.end();
     }
 
 
   });
 
-  res.end();
 });
 
 
