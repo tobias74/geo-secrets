@@ -62,35 +62,5 @@
 
 
 
-.new-message-marker {
-  background-color:red;
-}
 
-.chat-animate-repeat {
-  overflow:hidden;
-  opacity:1;
-  background-color:white;
-  
-}
-
-.chat-animate-repeat.ng-move,
-.chat-animate-repeat.ng-enter,
-.chat-animate-repeat.ng-leave {
-  -webkit-transition:all linear 0.5s;
-  transition:all linear 0.5s;
-}
-
-.chat-animate-repeat.ng-leave.ng-leave-active,
-.chat-animate-repeat.ng-move,
-.chat-animate-repeat.ng-enter {
-  opacity:0;
-  max-height:0px;
-}
-
-.chat-animate-repeat.ng-leave,
-.chat-animate-repeat.ng-move.ng-move-active,
-.chat-animate-repeat.ng-enter.ng-enter-active {
-  opacity:1;
-  max-height:100px;
-}
 

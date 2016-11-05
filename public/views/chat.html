@@ -135,18 +135,9 @@
     
       <div class="row" style="height:calc(100%);height:-webkit-calc(100%);background-color:#ffffff;position:relative;">
     
-        <div style="cursor:pointer;text-align:center;position:absolute;top:0px;z-index:10;width:100%;height:40px;padding:10px;
-                    border-bottom:1px solid #444444;" 
-             ng-click="scrollInNewMessages()"
-             ng-show="hasNewMessages() && isScrolled"
-             class="bg-info">
-             {{newMessageStack.length}} new messages
-             
-        </div>    
-    
-        <div scroll-watch="data.scrollData" reached-bottom="scrolledForMore()" ng-if="finishedLoadingMessages && hasMessages()" class="col-md-12" style="height:100%;overflow-y:scroll;padding-top:20px;">
+        <div ng-if="finishedLoadingMessages && hasMessages()" class="col-md-12" style="height:100%;overflow-y:scroll;padding-top:20px;">
           <ul class="media-list">
-            <li class="media chat-animate-repeat" ng-repeat="message in messages">
+            <li class="media" ng-repeat="message in messages">
               <div style="width:100%;display:block;" class="media-body">
                 <a class="media-left" href="#">
                   <img class="media-object img-circle img-small" ng-src="{{message.profileImageUrl}}" />
