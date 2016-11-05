@@ -64,8 +64,6 @@ function($location,$scope,$route,$resource,$http,ResponsiveService,FileUploader,
   
 
 
-
-
   $scope.getTranscodedVideoUrl = function(format, payloadId){
     return '/transcodedVideo/' + format + '/' + payloadId;    
   };
@@ -195,7 +193,7 @@ function($location,$scope,$route,$resource,$http,ResponsiveService,FileUploader,
       console.debug(messageData);
 
 
-      ApiService.sendGeoSecret(messageData);
+      ApiService.sendGeoSecret(messageData, $scope.loadMessages);
 
       
       $scope.messageInput = "";
@@ -283,7 +281,7 @@ function($location,$scope,$route,$resource,$http,ResponsiveService,FileUploader,
         
         console.debug(messageData);
   
-        ApiService.sendGeoSecret(messageData);
+        ApiService.sendGeoSecret(messageData, $scope.loadMessages);
       });
     },
     onAfterAddingFile: function(item){

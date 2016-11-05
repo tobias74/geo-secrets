@@ -24,7 +24,7 @@ var indexMessagesName = config.elasticsearchPrefix + "_geomessages";
 
 
 
-var indexMessage = function(data){
+var indexMessage = function(data, callback){
   var client = elasticsearchClient;
   var indexName = indexMessagesName;
 
@@ -63,10 +63,13 @@ var indexMessage = function(data){
       },
       radius: myVisibilityRadius
     }
-  }, function (error,reponse){
+  }, function (error,response){
     if (error) {
       console.log(error);
     }
+    client.indices.refresh(indexName, function(){
+      callback && callback(response);
+    });
   });
 
 };

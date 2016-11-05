@@ -193,9 +193,10 @@ app.post('/send-geo-secret', function(req,res,next){
     else if (data.messageType === 'image'){
       expressMediaServer.executeTranscodingJob(messageData.payloadId, function(){
         messageData.isReady = true;
-        chatIndex.indexMessage(messageData);
-        res.json({'image':'finished'});
-        res.end();
+        chatIndex.indexMessage(messageData, function(){
+          res.json({'image':'finished'});
+          res.end();
+        });
       });
     }
     else
