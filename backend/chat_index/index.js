@@ -1,5 +1,6 @@
 
 var config = require('../config.js');
+var crypto = require('crypto');
 
 var elasticsearch = require('elasticsearch');
 var elasticsearchClient = new elasticsearch.Client({
@@ -19,7 +20,9 @@ var indexMessagesName = config.elasticsearchPrefix + "_geomessages";
 
 
 
-
+var getSecretHash = function(secret){
+  return crypto.createHash('sha256').update(secret + config.secretSalt).digest('base64');
+};
 
 
 
@@ -48,7 +51,7 @@ var indexMessage = function(data, callback){
       myUserId: data.myUserId,
       message: data.message,
       messageType: data.messageType,
-      messageSecret: data.messageSecret,
+      messageSecret: data.messageSecret ? getSecretHash(data.messageSecret) : data.messageSecret,
       payloadId: data.payloadId,
       profileImageUrl: data.profileImageUrl,
       timestamp: data.timestamp,
@@ -208,8 +211,8 @@ var searchRecentMessagesWithinRadius = function(data,callback){
     //console.log('we have a message secret!!!!!!!!!°');
     //console.log(data.messageSecret);
     request.body.query.filtered.filter.bool.must.push({
-        terms: {
-          messageSecret: data.messageSecret
+        term: {
+          messageSecret: getSecretHash(data.messageSecret)
         }
     });
   }

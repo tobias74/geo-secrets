@@ -355,7 +355,7 @@ function($location,$scope,$route,$resource,$http,ResponsiveService,FileUploader,
 
 
   $scope.hasMessages = function(){
-    return (($scope.messages.length > 0) || ($scope.hasNewMessages()))  ;
+    return ($scope.messages.length > 0)  ;
   };
 
   var getRecentMessages = function(params,aborter,callback){

@@ -3,26 +3,27 @@
   "description": "A simple geo chat",
   "main": "app.js",
   "dependencies": {
-    "auth0": "^2.3.0",
-    "express-jwt": "^3.4.0",
-    "async": "*",
     "amqplib": "*",
-    "temp": "*",
-    "mongodb": "*",
-    "gridfs-stream":"*",
-    "http": "*",
-    "node-gcm": "*",
+    "async": "*",
+    "auth0": "^2.3.0",
     "body-parser": "*",
-    "underscore": "*",
+    "crypto": "0.0.3",
+    "elasticsearch": "*",
     "express": "*",
-    "googleapis": "*",
-    "socket.io": "*",
+    "express-jwt": "^3.4.0",
+    "extend": "*",
     "formidable": "*",
     "fs-extra": "*",
     "gm": "*",
-    "elasticsearch": "*",
-    "extend": "*",
-    "redis": "*"
+    "googleapis": "*",
+    "gridfs-stream": "*",
+    "http": "*",
+    "mongodb": "*",
+    "node-gcm": "*",
+    "redis": "*",
+    "socket.io": "*",
+    "temp": "*",
+    "underscore": "*"
   },
   "devDependencies": {
     "grunt-cli": "*",
@@ -36,5 +37,3 @@
     "nodeunit": "*"
   }
 }
-
-
