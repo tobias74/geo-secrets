@@ -146,10 +146,7 @@ app.get('/loadRecentMessages', loadRecentMessages);
 
 app.get('/environment.js',function(req, res, next){
   res.setHeader("content-type", "text/javascript");
-  //fs.createReadStream('environments/' + config.jsenv).pipe(res);
-  res.write('BOUNDED_BUZZ_FACEBOOK_APP_ID='+'"' + config.facebook.appID +  '";');
   res.write('BOUNDED_BUZZ_BASE_URL='+'"' + config.host +  '";');
-  res.write('BOUNDED_BUZZ_GOOGLE_CLIENT_ID='+'"' + config.google.clientId +  '";');
   res.end();
 });
 
