@@ -168,7 +168,8 @@ function($location,$scope,$route,$resource,$http,ResponsiveService,FileUploader,
   $scope.deleteMessage = function(message){
     console.log('deleteig' + message.id);
     console.log(message);
-    socket.emit('delete_message', {messageId: message.id});
+    
+    ApiService.deleteGeoSecret(message.id);
 
     $scope.messages = $scope.messages.filter(function(innerMessage){
       return (message.id !== innerMessage.id);
@@ -200,34 +201,6 @@ function($location,$scope,$route,$resource,$http,ResponsiveService,FileUploader,
     }
   };
   
-
-
-
-
-  
-
-  
-  
-
-
-
-
-
-  
-  
-
-
-
-
-
-  
-  
-  
-  
-  
-  
-
-
 
 
 
@@ -380,9 +353,6 @@ function($location,$scope,$route,$resource,$http,ResponsiveService,FileUploader,
 
   // no side effects from here on down:
 
-  $scope.hasNewMessages = function(){
-    return ($scope.newMessageStack.length > 0);
-  };
 
   $scope.hasMessages = function(){
     return (($scope.messages.length > 0) || ($scope.hasNewMessages()))  ;

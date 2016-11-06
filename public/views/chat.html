@@ -72,19 +72,10 @@
               <div class="form-group">
                   <input ng-blur="onNewSecretString()" ng-enter="onNewSecretString()" class="form-control secret-input" ng-model="mySecretString" type="text" placeholder="Channel Secrets">
               </div>
-              <div class="form-group">
-                  <input ng-blur="onNewTagFilter()" ng-enter="onNewTagFilter()" class="form-control hash-input" ng-model="myTagFilter" type="text" placeholder="Hashtags"/>
-              </div>
               &nbsp;&nbsp;&nbsp;
               <span style="color:white;">Visibility: </span>
-              <div ng-show="!!myProfile" class="form-group ">
-                  <select class="form-control dropdown-inputs-ttl" ng-model="myTTL" ng-options="ttl.name for ttl in ttls"></select>
-              </div>
               <div class="form-group ">
                   <select class="form-control dropdown-inputs-range" ng-model="mySubscriptionRange" ng-options="range.name for range in ranges"></select>
-              </div>
-              <div ng-show="!!myProfile" class="form-group">
-                  <select class="form-control dropdown-inputs-delay" ng-model="myMessageDelay" ng-options="delay.name for delay in messageDelays"></select>
               </div>
             </form>
           
@@ -113,18 +104,9 @@
                   <div class="form-group">
                       <input ng-blur="onNewSecretString()" ng-enter="onNewSecretString()" class="form-control secret-input" ng-model="mySecretString" type="text" placeholder="Channel Secrets">
                   </div>
-                  <div class="form-group">
-                      <input ng-blur="onNewTagFilter()" ng-enter="onNewTagFilter()" class="form-control hash-input" ng-model="myTagFilter" type="text" placeholder="Hashtags"/>
-                  </div>
                   <span style="color:white;">Visibility: </span>
-                  <div ng-show="!!myProfile" class="form-group ">
-                      <select class="form-control dropdown-inputs-ttl" ng-model="myTTL" ng-options="ttl.name for ttl in ttls"></select>
-                  </div>
                   <div class="form-group ">
                       <select class="form-control dropdown-inputs-range" ng-model="mySubscriptionRange" ng-options="range.name for range in ranges"></select>
-                  </div>
-                  <div ng-show="!!myProfile" class="form-group">
-                      <select class="form-control dropdown-inputs-delay" ng-model="myMessageDelay" ng-options="delay.name for delay in messageDelays"></select>
                   </div>
                 </form>
           </div>

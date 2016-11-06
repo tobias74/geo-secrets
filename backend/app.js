@@ -213,6 +213,32 @@ app.post('/send-geo-secret', function(req,res,next){
 
 
 
+app.use('/delete-geo-secret', jwtCheck);
+app.post('/delete-geo-secret', function(req,res,next){
+  var data = req.body;
+
+  var jwtToken = auth0Helper.getJWTToken(req);
+  auth0.tokens.getInfo(jwtToken, function(err, userInfo){
+
+    chatIndex.getMessage(data.geoSecretId, function(messageData){
+      console.log('this is what we got back');
+      console.log(messageData);
+      if (messageData._source && (messageData._source.myUserId === userInfo.user_id)){
+        chatIndex.deleteMessage(messageData._id);
+        expressMediaServer.deleteMedia(messageData._source.payloadId);
+      }
+      else {
+        console.log('preventing unauthroized delte, or message was not there...');
+      }
+      
+      res.json({'ok':true});
+      res.end();
+    });
+
+
+  });
+
+});
 
 
 
