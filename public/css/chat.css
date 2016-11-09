@@ -12,7 +12,6 @@
 
 
 .message-input{
-  background: linear-gradient(to bottom, #ddd 0%, #aaa 100%);
   position:fixed;
   top:51px;
   padding-top:10px;
@@ -22,8 +21,6 @@
   left:0px;
   z-index:1020;
   box-sizing:border-box;
-  border-top:1px solid #222222;
-  border-bottom:1px solid #777;
   vertical-align:middle;
 }
 
@@ -47,6 +44,7 @@
     background: white;
     cursor: pointer;
     display: block;
+    z-index:9999;
 }
 
 

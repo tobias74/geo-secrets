@@ -68,12 +68,12 @@
 
           <div style="top:12px;" class="col-md-12 col-xs-12">
             <form class="hide-in-burger-mode form-inline pull-right" role="form">
-              <span style="color:white;">Filter: </span>
+              <span style="">Filter: </span>
               <div class="form-group">
                   <input ng-blur="onNewSecretString()" ng-enter="onNewSecretString()" class="form-control secret-input" ng-model="mySecretString" type="text" placeholder="Channel Secrets">
               </div>
               &nbsp;&nbsp;&nbsp;
-              <span style="color:white;">Visibility: </span>
+              <span style="">Visibility: </span>
               <div class="form-group ">
                   <select class="form-control dropdown-inputs-range" ng-model="mySubscriptionRange" ng-options="range.name for range in ranges"></select>
               </div>
@@ -94,30 +94,32 @@
 
 
   
-    <div class="container-fluid variable-chat-container" style="height:100%;border-top:1px solid #333;box-sizing:border-box"> 
+    <div class="container-fluid variable-chat-container" style="height:100%;box-sizing:border-box"> 
 
       <div class="row only-show-in-burger-mode">
         <div class="col-xs-12" >
           <div id="settings-for-the-burger" class="collapse" style="margin-left:-15px;margin-right:-15px;">
-                <form role="form" style="padding:20px;background-color:#555;">
-                  <span style="color:white;">Filter: </span>
+            <div class="well">
+                <form role="form" style="padding:20px;">
+                  <span style="">Filter: </span>
                   <div class="form-group">
                       <input ng-blur="onNewSecretString()" ng-enter="onNewSecretString()" class="form-control secret-input" ng-model="mySecretString" type="text" placeholder="Channel Secrets">
                   </div>
-                  <span style="color:white;">Visibility: </span>
+                  <span style="">Visibility: </span>
                   <div class="form-group ">
                       <select class="form-control dropdown-inputs-range" ng-model="mySubscriptionRange" ng-options="range.name for range in ranges"></select>
                   </div>
                 </form>
+              </div>
           </div>
           
         </div>
       </div>
     
     
-      <div class="row" style="height:calc(100%);height:-webkit-calc(100%);background-color:#ffffff;position:relative;">
+      <div class="row" style="height:calc(100%);height:-webkit-calc(100%);position:relative;">
     
-        <div ng-if="finishedLoadingMessages && hasMessages()" class="col-md-12" style="height:100%;overflow-y:scroll;padding-top:20px;">
+        <div ng-if="finishedLoadingMessages && hasMessages()" class="col-md-12" style="height:100%;padding-top:20px;">
           <ul class="media-list">
             <li class="media" ng-repeat="message in messages">
               <div style="width:100%;display:block;" class="media-body">
