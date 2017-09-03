@@ -1,3 +1,34 @@
+sudo apt-get install software-properties-common python-software-properties
+
+
+
+
+elasticsearch 
+=============
+
+sudo add-apt-repository ppa:webupd8team/java
+
+sudo apt-get update
+
+sudo apt-get install oracle-java8-installer
+
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+
+sudo apt-get install apt-transport-https
+
+echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-5.x.list
+
+sudo apt-get update && sudo apt-get install elasticsearch
+
+sudo update-rc.d elasticsearch defaults 95 10
+
+sudo -i service elasticsearch start
+
+
+
+
+
+
 spatial-chat
 ============
 

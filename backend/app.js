@@ -199,8 +199,9 @@ app.post('/send-geo-secret', function(req,res,next){
     else
     {
       messageData.isReady = true;
-      chatIndex.indexMessage(messageData);
-      res.end();
+      chatIndex.indexMessage(messageData, function(){
+        res.end();
+      });
     }
 
 

@@ -50,10 +50,6 @@ var createMessagesIndex = function(client,indexName){
             },
             location: {
               type: "geo_point",
-              lat_lon: true,
-              geohash: true,
-              geohash_precision: "1m",
-              geohash_prefix: true
             },
             radius: {
               type: "float"

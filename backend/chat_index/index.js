@@ -44,6 +44,7 @@ var indexMessage = function(data, callback){
   client.index({
     index: indexName,
     type: 'messages',
+    refresh: true,
     id: data.id,
     body: {
       isReady: data.isReady,
@@ -70,9 +71,7 @@ var indexMessage = function(data, callback){
     if (error) {
       console.log(error);
     }
-    client.indices.refresh(indexName, function(){
-      callback && callback(response);
-    });
+    callback && callback(response);
   });
 
 };
@@ -155,50 +154,43 @@ var searchRecentMessagesWithinRadius = function(data,callback){
       },
       from: 0,
       size: size,
-      fields: ["_source"],
       query: {
-        filtered: {
-          query:{
-            match_all: {}
-          },
-          filter: {
-            bool: {
-              must: [
-                {
-                        geo_distance: {
-                          distance: data.radius,
-                          location: {
-                            lat: parseFloat(data.lat),
-                            lon: parseFloat(data.lon)
-                          }
-                        }
-                },
-
-                {
-                  term: {
-                    isReady: true
-                  }
-                },
-
-
-                {
-                  geo_shape: {
-                    visibility: {
-                      shape: {
-                        type: 'point',
-                        coordinates: [
-                          data.lon,
-                          data.lat
-                        ]
+        bool: {
+          must_not: [],
+          must: [
+            {
+                    geo_distance: {
+                      distance: data.radius,
+                      location: {
+                        lat: parseFloat(data.lat),
+                        lon: parseFloat(data.lon)
                       }
                     }
+            },
+
+            {
+              term: {
+                isReady: true
+              }
+            },
+
+
+            {
+              geo_shape: {
+                visibility: {
+                  shape: {
+                    type: 'point',
+                    coordinates: [
+                      data.lon,
+                      data.lat
+                    ]
                   }
                 }
-
-
-              ]
+              }
             }
-          }
+
+
+          ]
         }
       }
     }
@@ -210,7 +202,7 @@ var searchRecentMessagesWithinRadius = function(data,callback){
   if (data.messageSecret){
     //console.log('we have a message secret!!!!!!!!!°');
     //console.log(data.messageSecret);
-    request.body.query.filtered.filter.bool.must.push({
+    request.body.query.bool.must.push({
         term: {
           messageSecret: getSecretHash(data.messageSecret)
         }
@@ -218,8 +210,8 @@ var searchRecentMessagesWithinRadius = function(data,callback){
   }
   else{
     //console.log('we have nooooo?????????????????????????????????????????????????? message secret');
-    request.body.query.filtered.filter.bool.must.push(                   {
-      missing: {
+    request.body.query.bool.must_not.push({
+      exists: {
         field: "messageSecret"
       }
     });
