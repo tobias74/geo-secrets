@@ -87,7 +87,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 
 var loadRecentMessages = function(req, res, next){
-	//console.log('-------------------------------------------------------------------');
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  console.log('this is our remote address here: ' + ip);
+	console.log('-------------------------------------------------------------------');
 	//console.log(req.query);
   var tagSplit;
   var secretSplit;
