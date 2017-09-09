@@ -1,5 +1,54 @@
 sudo apt-get install software-properties-common python-software-properties
 
+docker
+======
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+sudo apt-get update
+
+apt-cache policy docker-ce
+
+sudo apt-get install -y docker-ce
+
+
+
+
+mpongodb
+========
+
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
+
+echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+
+sudo apt-get update
+
+sudo apt-get install -y mongodb-org
+
+sudo service mongod start
+
+
+
+
+
+rabbitmq
+========
+
+echo 'deb http://www.rabbitmq.com/debian/ testing main' | sudo tee /etc/apt/sources.list.d/rabbitmq.list
+     
+wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -
+
+sudo apt-get update
+
+sudo apt-get install rabbitmq-server
+
+rabbitmqctl add_user tobias  p*ssword
+
+rabbitmqctl set_permissions tobias ".*" ".*" ".*"
+
+
 
 
 
@@ -23,6 +72,17 @@ sudo apt-get update && sudo apt-get install elasticsearch
 sudo update-rc.d elasticsearch defaults 95 10
 
 sudo -i service elasticsearch start
+
+
+
+
+nginx
+=====
+
+sudo apt-get install apache2-utils
+
+sudo htpasswd -c /etc/nginx/passwords tobias
+
 
 
 
